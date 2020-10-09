@@ -6,7 +6,7 @@ echo "------------------------- Welcome To Employee Wage Computation -----------
 isPresent=1
 
 #GENERATING RANDOM VALUE TO GET ATTENDANCE
-randomNumber=$((RANDOM%2))
+randomNumber=$((RANDOM%3))
 
 #TO CHECK THE EMPLOYEE IS PRESENT OR ABSENT
 if [ $randomNumber -eq 	$isPresent ]
@@ -17,10 +17,5 @@ else
 fi
 empWagePerHour=20
 dailyEmpHrs=8
-#FUNCTION TO CALCULATE EMPLOYEE ONE DAY WAGE
-function calculateDailyEmployeeWage(){
 	calculateEmployeeWage=$(($empWagePerHour*$dailyEmpHrs))
 	echo "Employee's one day wage is equal to" $calculateEmployeeWage "rupees"
-}
-#FUNCTION CALL
-calculateDailyEmployeeWage
