@@ -23,23 +23,38 @@ MAX_HOURS_IN_MONTH=100
 totalEmpHours=0
 totalWorkingDays=0
 
-function getWorkinghours(){
-	case $1 in
-	$IS_FULL_TIME )
-		empHrs=8;;
-	$IS_PART_TIME )
-		empHrs=4;;
-	* )
-		empHrs=0;;
-esac
+#DICTIONARY IS USED
+
+declare -A dailyWage
+
+function getWorkingHours(){
+	case $1 in 
+		$IS_FULL_TIME )
+			empHrs=8
+			;;
+		$IS_PART_TIME )
+			empHrs=4
+			;;
+		* )
+			empHrs=0
+			;;
+	esac
 	echo $empHrs
 }
 
-while [[ $totalEmpHours -lt $MAX_HOURS_IN_MONTH && $totalWorkingDays -lt $NO_OF_WORKING_DAYS ]]
+function getEmpWage(){
+	empHours=$1
+	echo $(($empHours*$EMP_RATE_PER_HOUR))
+}
+
+while [[ $totalEmpHours -lt $MAX_HOURS_IN_MONTH &&  $totalWorkingDays -lt $NO_OF_WORKING_DAYS ]]
 do
 	((totalWorkingDays++))
-	empHrs=$( getWorkinghours $((RANDOM%3)) )
-	totalEmpHours=$(($totalEmpHours+$empHrs))
+	empHours=$( getWorkingHours $((RANDOM%3)) )	
+	totalEmpHours=$(($totalEmpHours+$empHours))
+	dailyWage["$totalWorkingDays"]=$( getEmpWage $empHours )
 done
-totalSalary=$(($EMP_RATE_PER_HOUR*$totalEmpHours))
-echo "Total salary is $totalSalary"
+
+totalSalary=$(($totalEmpHours*$EMP_RATE_PER_HOUR));
+echo "Daily Wages : " ${dailyWage[@]}
+echo "Total Monthly salary is $totalSalary"
