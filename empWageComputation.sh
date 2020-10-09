@@ -26,7 +26,6 @@ totalWorkingDays=0
 #DICTIONARY IS USED
 
 declare -A dailyWage
-
 function getWorkingHours(){
 	case $1 in 
 		$IS_FULL_TIME )
@@ -50,11 +49,13 @@ function getEmpWage(){
 while [[ $totalEmpHours -lt $MAX_HOURS_IN_MONTH &&  $totalWorkingDays -lt $NO_OF_WORKING_DAYS ]]
 do
 	((totalWorkingDays++))
-	empHours=$( getWorkingHours $((RANDOM%3)) )	
+	empHours=$( getWorkingHours $((RANDOM%3)) )
 	totalEmpHours=$(($totalEmpHours+$empHours))
-	dailyWage["$totalWorkingDays"]=$( getEmpWage $empHours )
+	dailyWage[$totalWorkingDays]=$( getEmpWage $empHours )
 done
 
 totalSalary=$(($totalEmpHours*$EMP_RATE_PER_HOUR));
-echo "Daily Wages : " ${dailyWage[@]}
+echo "Employee Daily Wages : " ${dailyWage[@]}
+echo "Employee Working Days : " ${!dailyWage[@]}
+
 echo "Total Monthly salary is $totalSalary"
