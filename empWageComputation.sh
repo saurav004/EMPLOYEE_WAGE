@@ -2,20 +2,21 @@
 
 echo "------------------------- Welcome To Employee Wage Computation ------------------------"
 
-# VARIABLE PRESENT IS CREATED AND SET VALUE = 1
-isPresent=1
-
-#GENERATING RANDOM VALUE TO GET ATTENDANCE
-randomNumber=$((RANDOM%3))
-
 #TO CHECK THE EMPLOYEE IS PRESENT OR ABSENT
-if [ $randomNumber -eq 	$isPresent ]
-then
-	echo "Employee is Present"
+isFullTime=1
+isPartTime=2
+randomCheck=$((RANDOM%3))
+#IF EMP IS PRESENT FULL TIME  OR PART TIME OR ABSENT, DAILY WAGE IS CALCULATED FOR ALL THESE SCENARIOS
+if [ $randomCheck == $isFullTime ]
+then    perhourrate=20
+        emphrs=8
+        salary=$(($perhourrate*$emphrs))
+elif [ $randomCheck == $isPartTime  ]
+then    perhourrate=20
+        emphrs=8
+        salary=$(($perhourrate*$emphrs))
 else
-	echo "Employee is Absent"
+        salary=0
 fi
-empWagePerHour=20
-dailyEmpHrs=8
-	calculateEmployeeWage=$(($empWagePerHour*$dailyEmpHrs))
-	echo "Employee's one day wage is equal to" $calculateEmployeeWage "rupees"
+echo "your one day salary is" $salary
+
