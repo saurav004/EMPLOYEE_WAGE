@@ -2,38 +2,41 @@
 
 echo "------------------------------------------------------- Welcome To Employee Wage Computation ----------------------------------------------------------------"
 
-#TO CHECK THE EMPLOYEE IS PRESENT OR ABSENT
-isFullTime=1
-isPartTime=2
-perhourrate=20
-noOfWorkingDays=20
-
 #EMPLOYEE ATTENDANCE IS CHECKED
 
 
 #IF EMP IS PRESENT FULL TIME  OR PART TIME OR ABSENT BASED ON THIS, MONTHLY WAGE IS CALCULATED .
 
+
 #SWITCH_CASE IS USED
 
 
-#FOR LOOP IS USED
+#WHILE LOOP IS USED
 
-for ((day=1;day<=$noOfWorkingDays;day++))
+#EMPLOYEE SALARY IS CALCULATED UNTIL 100 HOURS OR 20 WORKING DAYS ARE COVERED
+IS_FULL_TIME=1
+IS_PART_TIME=2
+EMP_RATE_PER_HOUR=20
+NO_OF_WORKING_DAYS=20
+MAX_HOURS_IN_MONTH=100
+
+totalEmpHours=0
+totalWorkingDays=0
+
+while [[ $totalEmpHours -lt $MAX_HOURS_IN_MONTH && $totalWorkingDays -lt $NO_OF_WORKING_DAYS ]]
 do
-randomCheck=$((RANDOM%3))
-case $randomCheck in
-   $isFullTime )
-   emphrs=8
-   ;;
-$isPartTime )
-   emphrs=4
-   ;;
-* )
-   continue
-   ;;
+	((totalWorkingDays++))
+	empCheck=$((RANDOM%3))
+	case $empCheck in
+	$IS_FULL_TIME )
+		empHrs=8;;
+	$IS_PART_TIME )
+		empHrs=4;;
+	* )
+		empHrs=0;;
 esac
-salary=$(($perhourrate*$emphrs))
-totalSalary=$(($totalSalary+$salary))
+totalEmpHours=$(($totalEmpHours+$empHrs))
 done
-echo "Employee's One Month salary is" $totalSalary
+totalSalary=$(($EMP_RATE_PER_HOUR*$totalEmpHours))
+echo "Total salary is $totalSalary"
 
