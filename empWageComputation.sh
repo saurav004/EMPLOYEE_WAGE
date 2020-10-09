@@ -1,26 +1,35 @@
 #!/bin/bash -x
 
-echo "------------------------- Welcome To Employee Wage Computation ------------------------"
+echo "------------------------------------------------------- Welcome To Employee Wage Computation ----------------------------------------------------------------"
 
 #TO CHECK THE EMPLOYEE IS PRESENT OR ABSENT
 isFullTime=1
 isPartTime=2
+#RANDOM VALUE GENERATED
 randomCheck=$((RANDOM%3))
+perhourrate=20
+
 #EMPLOYEE ATTENDANCE IS CHECKED
+
+
 #IF EMP IS PRESENT FULL TIME  OR PART TIME OR ABSENT, DAILY WAGE IS CALCULATED FOR ALL THESE SCENARIOS
-if [ $randomCheck == $isFullTime ]
-then    perhourrate=20
-        emphrs=8
-	echo "Employee is Present"
-        salary=$(($perhourrate*$emphrs))
-elif [ $randomCheck == $isPartTime  ]
-then    perhourrate=20
-        emphrs=6
-	echo "Employee is Present for Part Time"
-        salary=$(($perhourrate*$emphrs))
-else
-	echo "Employee is Absent"
-        salary=0
-fi
-echo "your one day salary is" $salary
+
+#SWITCH_CASE IS USED
+case $randomCheck in
+$isFullTime )
+	echo "Employee is present Full Time "
+		emphrs=8
+		salary=$(($perhourrate*$emphrs))
+		;;
+$isPartTime )
+	echo "Employee is present Part Time"
+		emphrs=4
+		salary=$(($perhourrate*$emphrs))
+      ;;
+* )
+	echo "Employee is absent"
+		salary=0
+      ;;
+esac
+echo "Employee's one day salary is" $salary
 
