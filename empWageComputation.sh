@@ -5,31 +5,35 @@ echo "------------------------------------------------------- Welcome To Employe
 #TO CHECK THE EMPLOYEE IS PRESENT OR ABSENT
 isFullTime=1
 isPartTime=2
-#RANDOM VALUE GENERATED
-randomCheck=$((RANDOM%3))
 perhourrate=20
+noOfWorkingDays=20
 
 #EMPLOYEE ATTENDANCE IS CHECKED
 
 
-#IF EMP IS PRESENT FULL TIME  OR PART TIME OR ABSENT, DAILY WAGE IS CALCULATED FOR ALL THESE SCENARIOS
+#IF EMP IS PRESENT FULL TIME  OR PART TIME OR ABSENT BASED ON THIS, MONTHLY WAGE IS CALCULATED .
 
 #SWITCH_CASE IS USED
+
+
+#FOR LOOP IS USED
+
+for ((day=1;day<=$noOfWorkingDays;day++))
+do
+randomCheck=$((RANDOM%3))
 case $randomCheck in
-$isFullTime )
-	echo "Employee is present Full Time "
-		emphrs=8
-		salary=$(($perhourrate*$emphrs))
-		;;
+   $isFullTime )
+   emphrs=8
+   ;;
 $isPartTime )
-	echo "Employee is present Part Time"
-		emphrs=4
-		salary=$(($perhourrate*$emphrs))
-      ;;
+   emphrs=4
+   ;;
 * )
-	echo "Employee is absent"
-		salary=0
-      ;;
+   continue
+   ;;
 esac
-echo "Employee's one day salary is" $salary
+salary=$(($perhourrate*$emphrs))
+totalSalary=$(($totalSalary+$salary))
+done
+echo "Employee's One Month salary is" $totalSalary
 
